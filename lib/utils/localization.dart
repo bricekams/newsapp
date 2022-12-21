@@ -134,5 +134,9 @@ const Map<String, dynamic> dictionary = {
   "@hasNoDesc":{
     "en":"Has no description",
     "fr":"Aucune description"
+  },
+  "@currentLang":{
+    "en":"English  🇬🇧",
+    "fr":"Francais  🇫🇷"
   }
 };
