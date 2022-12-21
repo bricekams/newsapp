@@ -16,16 +16,24 @@ class SettingSection extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(color: Theme.of(context).primaryColor),
-          ),
-          Divider(
-            color: Theme.of(context).primaryColor,
-            thickness: 2,
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                title,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(color: Theme.of(context).primaryColor),
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: Divider(
+                  color: Theme.of(context).primaryColor,
+                  thickness: 2,
+                ),
+              )
+            ],
           ),
           ...tiles
         ],

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:newsapp/theme/theme_provider.dart';
+import 'package:newsapp/ui/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class SettingsPrefs {

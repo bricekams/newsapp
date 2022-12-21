@@ -77,7 +77,7 @@ class SettingsScreen extends StatelessWidget {
                         ),
                       ),
                       SettingTile(
-                        leading: Icon(Icons.recycling),
+                        leading: const Icon(Icons.recycling),
                         title: "Cache",
                         trailing: IconButton(
                           onPressed: (){},
@@ -88,6 +88,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              /// Credits
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: RichText(

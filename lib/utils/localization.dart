@@ -40,7 +40,7 @@ const Map<String, dynamic> dictionary = {
     "fr":"Préférences"
   },
   "@browserSettings":{
-    "en": "Browser setting",
+    "en": "Browser settings",
     "fr": "Paramètres du navigateur"
   },
   "@about":{

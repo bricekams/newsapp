@@ -30,7 +30,7 @@ class AppTheme {
           const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
       iconTheme: MaterialStateProperty.resolveWith((states) {
         if (states.isSelected) {
-          return const IconThemeData(color: _white);
+          return IconThemeData(color: _scaffoldBgLight);
         }
         return const IconThemeData(color: _black);
       }),
@@ -48,7 +48,7 @@ class AppTheme {
       indicatorColor: _primaryDark,
       backgroundColor: _scaffoldBgDark,
       labelTextStyle: MaterialStateProperty.resolveWith((states) =>
-          const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+          TextStyle(fontWeight: FontWeight.bold, fontSize: 12,color: states.isSelected?_primaryDark:null)),
       iconTheme: MaterialStateProperty.resolveWith((states) {
         if (states.isSelected) {
           return IconThemeData(color: _scaffoldBgDark);

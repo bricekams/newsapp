@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/utils/localization.dart';
+import 'package:newsapp/utils/persistance/settings/settings_prefs.dart';
 
 class BookmarksScreen extends StatelessWidget {
   const BookmarksScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String lang = SettingsPrefs.lang;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Bookmarks"),
+        title: Text(dictionary["@bookmarks"][lang]),
       ),
     );
   }
