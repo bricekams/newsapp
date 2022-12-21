@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 extension MaterialStateSheet on Set<MaterialState> {
   bool get isSelected => contains(MaterialState.selected);
 
@@ -12,46 +11,50 @@ extension MaterialStateSheet on Set<MaterialState> {
 }
 
 class AppTheme {
-
   /// Colors Scheme
   static const Color _white = Colors.white;
   static const Color _black = Colors.black;
-  static final Color _primary = Colors.blue.shade900;
+  static final Color _primaryLight = Colors.blue.shade900;
+  static final Color _primaryDark = Colors.tealAccent.shade700;
   static final Color _scaffoldBgLight = Colors.grey[50]!;
   static final Color _scaffoldBgDark = Colors.grey[800]!;
 
   static ThemeData light = ThemeData(
-    primaryColor: _primary,
-    appBarTheme: AppBarTheme(
-      backgroundColor: _primary
-    ),
+    primaryColor: _primaryLight,
+    brightness: Brightness.light,
+    appBarTheme: AppBarTheme(backgroundColor: _primaryLight),
     navigationBarTheme: NavigationBarThemeData(
-      indicatorColor: _primary,
+      indicatorColor: _primaryLight,
       backgroundColor: _scaffoldBgLight,
-      labelTextStyle: MaterialStateProperty.resolveWith((states)=>const TextStyle(fontWeight: FontWeight.bold,fontSize: 12)) ,
-      iconTheme: MaterialStateProperty.resolveWith((states){
-        if(states.isSelected){
+      labelTextStyle: MaterialStateProperty.resolveWith((states) =>
+          const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+      iconTheme: MaterialStateProperty.resolveWith((states) {
+        if (states.isSelected) {
           return const IconThemeData(color: _white);
         }
         return const IconThemeData(color: _black);
       }),
-    )
+    ),
   );
   static ThemeData dark = ThemeData(
-      primaryColor: _primary,
-      appBarTheme: AppBarTheme(
-          backgroundColor: _primary
-      ),
-      navigationBarTheme: NavigationBarThemeData(
-        indicatorColor: _primary,
-        backgroundColor: _scaffoldBgDark,
-        labelTextStyle: MaterialStateProperty.resolveWith((states)=>const TextStyle(fontWeight: FontWeight.bold,fontSize: 12)) ,
-        iconTheme: MaterialStateProperty.resolveWith((states){
-          if(states.isSelected){
-            return IconThemeData(color: _scaffoldBgDark);
-          }
-          return IconThemeData(color: _scaffoldBgLight);
-        }),
-      )
+    primaryColor: _primaryDark,
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: _scaffoldBgDark,
+    appBarTheme: AppBarTheme(backgroundColor: _primaryDark),
+    switchTheme: SwitchThemeData(
+      thumbColor: MaterialStateProperty.resolveWith((states) => states.isSelected?_primaryDark:null)
+    ),
+    navigationBarTheme: NavigationBarThemeData(
+      indicatorColor: _primaryDark,
+      backgroundColor: _scaffoldBgDark,
+      labelTextStyle: MaterialStateProperty.resolveWith((states) =>
+          const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+      iconTheme: MaterialStateProperty.resolveWith((states) {
+        if (states.isSelected) {
+          return IconThemeData(color: _scaffoldBgDark);
+        }
+        return IconThemeData(color: _scaffoldBgLight);
+      }),
+    ),
   );
 }
