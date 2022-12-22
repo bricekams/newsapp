@@ -30,13 +30,14 @@ class _ScreenBuilderState extends State<ScreenBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      primary: true,
-      children: [
-        const CategoriesListBuilder(),
-        _bodyBuilder(
-            Provider.of<NewsAPI>(context, listen: true).apiRequestStatus),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const CategoriesListBuilder(),
+          _bodyBuilder(
+              Provider.of<NewsAPI>(context, listen: true).apiRequestStatus),
+        ],
+      ),
     );
   }
 
@@ -66,9 +67,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      primary: false,
-      shrinkWrap: true,
+    return Column(
       children: const [HeadlineBuilder(), FeedsBuilder()],
     );
   }
