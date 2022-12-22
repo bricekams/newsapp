@@ -18,6 +18,7 @@ class ScreenBuilder extends StatefulWidget {
 }
 
 class _ScreenBuilderState extends State<ScreenBuilder> {
+  ScrollController scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
@@ -26,12 +27,24 @@ class _ScreenBuilderState extends State<ScreenBuilder> {
         Provider.of<NewsAPI>(context, listen: false).fetchNewsCategory();
       }
     });
+    scrollController.addListener(() {
+      /// if scroll til the end and data are not already loading
+      if (scrollController.offset ==
+          scrollController.position.maxScrollExtent && !Provider.of<NewsAPI>(context,listen: false).apiRequestStatus.isLoadingMore) {
+        log("Scroll: maxScrollExtent reached");
+        Provider.of<NewsAPI>(context, listen: false).loadMoreNews();
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
+
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      child: ListView(
+        controller: scrollController,
+        shrinkWrap: false,
         children: [
           const CategoriesListBuilder(),
           _bodyBuilder(
@@ -49,15 +62,13 @@ class _ScreenBuilderState extends State<ScreenBuilder> {
         Provider.of<NewsAPI>(context, listen: false).articles.isEmpty) {
       return const LoadingWidget();
     }
-    if (status.isLoaded) {
-      return const Home();
-    }
     if (status.hasError) {
       return const ApiErrorWidget();
     }
     if (status.hasConnectionError){
       return const ApiErrorWidget();
     }
+    /// else, data loaded
     return const Home();
   }
 }
@@ -67,7 +78,9 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
+      primary: false,
+      shrinkWrap: true,
       children: const [HeadlineBuilder(), FeedsBuilder()],
     );
   }

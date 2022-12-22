@@ -27,7 +27,7 @@ class NewsAPI with ChangeNotifier {
   }
 
   int _page = 1;
-
+  final int _defaultApiLastPage = 5;
   int get getPage => _page;
 
   void incrementPage() {
@@ -61,7 +61,6 @@ class NewsAPI with ChangeNotifier {
       response = await _dio.get(endpoint);
       body = response.data["articles"];
       articles = body.map((item) => Article.fromJson(item)).toList();
-      log("url: ${response.requestOptions.baseUrl}${response.requestOptions.path}");
       return articles;
     } on DioError catch (err) {
       log(err.message);
@@ -86,6 +85,8 @@ class NewsAPI with ChangeNotifier {
     }
   }
 
+  /// set page = 1
+  /// clear the current article list then add new news
   void fetchNewsCategory() async {
     resetPage();
     requestNewsByCategories(1,false).then((articles){
@@ -95,11 +96,13 @@ class NewsAPI with ChangeNotifier {
     });
   }
 
-  void addToArticlesList() async {
-    if (getPage < 5) {
+  void loadMoreNews() async {
+    /// the api allow us to load 20 by pages only 5 times, 5*100, more available for premium
+    if (getPage < _defaultApiLastPage) {
       requestNewsByCategories(getPage+1,true).then((articles) {
         this.articles.addAll(articles);
         setAPIRequestStatus = APIRequestStatus.loaded;
+        /// next page
         incrementPage();
       }).onError((error, stackTrace) {
         log(error.toString());

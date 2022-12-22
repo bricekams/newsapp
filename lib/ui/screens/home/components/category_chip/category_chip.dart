@@ -8,8 +8,7 @@ import '../../../../../utils/localization.dart';
 class CategoryChip extends StatelessWidget {
   final int index;
 
-  const CategoryChip({Key? key, required this.index})
-      : super(key: key);
+  const CategoryChip({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,22 +16,36 @@ class CategoryChip extends StatelessWidget {
     String label = categories[lang]![index];
 
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Provider.of<NewsAPI>(context, listen: false).setCategoryIndex = index;
       },
       child: Chip(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor:
+            Provider.of<NewsAPI>(context, listen: true).currentCategoryIndex ==
+                    index
+                ? Theme.of(context).primaryColor
+                : Colors.grey.shade300,
         label: Row(
           children: [
             Text(
-              label,
+              "${label[0].toUpperCase()}${label.substring(1)}",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Provider.of<NewsAPI>(context, listen: true)
+                              .currentCategoryIndex ==
+                          index
+                      ? Colors.white
+                      : SettingsPrefs.darkMode?Theme.of(context).scaffoldBackgroundColor:null),
             ),
+
             /// if current chip and request loading
-            if (Provider.of<NewsAPI>(context,listen: true).currentCategoryIndex == index &&
+            if (Provider.of<NewsAPI>(context, listen: true)
+                        .currentCategoryIndex ==
+                    index &&
                 Provider.of<NewsAPI>(context, listen: true)
                     .apiRequestStatus
-                    .isLoading && Provider.of<NewsAPI>(context, listen: true)
-                .articles.isNotEmpty)
+                    .isLoading &&
+                Provider.of<NewsAPI>(context, listen: true).articles.isNotEmpty)
               Container(
                 margin: const EdgeInsets.only(left: 5),
                 child: const SizedBox(

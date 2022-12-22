@@ -20,41 +20,43 @@ class AppTheme {
   static final Color _scaffoldBgDark = Colors.grey[800]!;
 
   static ThemeData light = ThemeData(
-    primaryColor: _primaryLight,
-    brightness: Brightness.light,
-    appBarTheme: AppBarTheme(backgroundColor: _primaryLight),
-    navigationBarTheme: NavigationBarThemeData(
-      indicatorColor: _primaryLight,
-      backgroundColor: _scaffoldBgLight,
-      labelTextStyle: MaterialStateProperty.resolveWith((states) =>
-          const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-      iconTheme: MaterialStateProperty.resolveWith((states) {
-        if (states.isSelected) {
-          return IconThemeData(color: _scaffoldBgLight);
-        }
-        return const IconThemeData(color: _black);
-      }),
-    ),
-  );
+      primaryColor: _primaryLight,
+      brightness: Brightness.light,
+      appBarTheme: AppBarTheme(backgroundColor: _primaryLight),
+      navigationBarTheme: NavigationBarThemeData(
+        indicatorColor: _primaryLight,
+        backgroundColor: _scaffoldBgLight,
+        labelTextStyle: MaterialStateProperty.resolveWith((states) =>
+            const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+        iconTheme: MaterialStateProperty.resolveWith((states) {
+          if (states.isSelected) {
+            return IconThemeData(color: _scaffoldBgLight);
+          }
+          return const IconThemeData(color: _black);
+        }),
+      ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(color: _primaryLight));
   static ThemeData dark = ThemeData(
-    primaryColor: _primaryDark,
-    brightness: Brightness.dark,
-    scaffoldBackgroundColor: _scaffoldBgDark,
-    appBarTheme: AppBarTheme(backgroundColor: _primaryDark),
-    switchTheme: SwitchThemeData(
-      thumbColor: MaterialStateProperty.resolveWith((states) => states.isSelected?_primaryDark:null)
-    ),
-    navigationBarTheme: NavigationBarThemeData(
-      indicatorColor: _primaryDark,
-      backgroundColor: _scaffoldBgDark,
-      labelTextStyle: MaterialStateProperty.resolveWith((states) =>
-          TextStyle(fontWeight: FontWeight.bold, fontSize: 12,color: states.isSelected?_primaryDark:null)),
-      iconTheme: MaterialStateProperty.resolveWith((states) {
-        if (states.isSelected) {
-          return IconThemeData(color: _scaffoldBgDark);
-        }
-        return IconThemeData(color: _scaffoldBgLight);
-      }),
-    ),
-  );
+      primaryColor: _primaryDark,
+      brightness: Brightness.dark,
+      scaffoldBackgroundColor: _scaffoldBgDark,
+      appBarTheme: AppBarTheme(backgroundColor: _primaryDark),
+      switchTheme: SwitchThemeData(
+          thumbColor: MaterialStateProperty.resolveWith(
+              (states) => states.isSelected ? _primaryDark : null)),
+      navigationBarTheme: NavigationBarThemeData(
+        indicatorColor: _primaryDark,
+        backgroundColor: _scaffoldBgDark,
+        labelTextStyle: MaterialStateProperty.resolveWith((states) => TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: states.isSelected ? _primaryDark : null)),
+        iconTheme: MaterialStateProperty.resolveWith((states) {
+          if (states.isSelected) {
+            return IconThemeData(color: _scaffoldBgDark);
+          }
+          return IconThemeData(color: _scaffoldBgLight);
+        }),
+      ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(color: _primaryDark));
 }

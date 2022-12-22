@@ -10,11 +10,18 @@ class CategoriesListBuilder extends StatelessWidget {
     return SizedBox(
       height: 50,
       width: MediaQuery.of(context).size.width,
-      child: ListView.builder(
-        itemCount: categories["en"]?.length,
+      child: ListView.separated(
+        separatorBuilder: (context, i) {
+          return const SizedBox(width: 6);
+        },
+        itemCount: categories["en"]!.length,
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context,index){
-          return CategoryChip(index: index);
+        itemBuilder: (context, index) {
+          return Padding(
+            padding:
+                index == 0 ? const EdgeInsets.only(left: 7) : EdgeInsets.zero,
+            child: CategoryChip(index: index),
+          );
         },
       ),
     );
