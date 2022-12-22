@@ -7,9 +7,13 @@ import 'package:newsapp/ui/theme/theme.dart';
 import 'package:newsapp/ui/theme/theme_provider.dart';
 import 'package:newsapp/utils/persistance/settings/settings_prefs.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import 'data/api/api.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   Article.registerAdapter();
   Source.registerAdapter();
   await Hive.initFlutter();
@@ -20,6 +24,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => NavBarProvider()),
         ChangeNotifierProvider(create: (_) => AppThemeProvider()),
+        ChangeNotifierProvider(create: (_)=>NewsAPI())
       ],
       child: const MyApp(),
     ),

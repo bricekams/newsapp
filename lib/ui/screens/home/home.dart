@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newsapp/ui/screens/home/compononents/search_delegate/search_delegate.dart';
+import 'package:newsapp/ui/screens/home/components/search_delegate/search_delegate.dart';
+import 'package:newsapp/ui/screens/home/view_models/screen_builder.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class HomeScreen extends StatelessWidget {
           )
         ],
       ),
+      body: const ScreenBuilder(),
     );
   }
 }

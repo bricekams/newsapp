@@ -1,3 +1,8 @@
+const Map<String,List<String>> categories = {
+  "en": ["general","sports","business","health","entertainment","technology","science"],
+  "fr": ["generale","sports","affaires","santé","divertissement","technologie","science"]
+};
+
 const Map<String, dynamic> dictionary = {
   "@home":{
     "en":"Home",
