@@ -60,3 +60,4 @@ class AppTheme {
       ),
       progressIndicatorTheme: ProgressIndicatorThemeData(color: _primaryDark));
 }
+

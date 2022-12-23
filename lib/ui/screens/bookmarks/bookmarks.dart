@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/utils/localization.dart';
 import 'package:newsapp/utils/persistance/settings/settings_prefs.dart';
-
+/// TODO: bookmarks save and read articles
 class BookmarksScreen extends StatelessWidget {
   const BookmarksScreen({Key? key}) : super(key: key);
 

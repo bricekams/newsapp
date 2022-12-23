@@ -10,6 +10,10 @@ import 'package:newsapp/utils/enum.dart';
 import 'package:provider/provider.dart';
 import 'categories_builder.dart';
 
+
+
+///TODO: refresh page
+
 class ScreenBuilder extends StatefulWidget {
   const ScreenBuilder({Key? key}) : super(key: key);
 

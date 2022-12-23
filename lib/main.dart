@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:newsapp/data/api/source_api.dart';
 import 'package:newsapp/data/models/article.dart';
 import 'package:newsapp/data/models/source.dart';
 import 'package:newsapp/ui/screens/main_screen.dart';
@@ -24,7 +25,8 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => NavBarProvider()),
         ChangeNotifierProvider(create: (_) => AppThemeProvider()),
-        ChangeNotifierProvider(create: (_)=>NewsAPI())
+        ChangeNotifierProvider(create: (_)=>NewsAPI()),
+        ChangeNotifierProvider(create: (_)=>SourceAPI())
       ],
       child: const MyApp(),
     ),
@@ -36,6 +38,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<SourceAPI>(context,listen: false).fetchAllSource();
     return MaterialApp(
       title: 'News App',
       theme: AppTheme.light,
