@@ -33,6 +33,7 @@ class MainScreen extends StatelessWidget {
         return Scaffold(
           body: screens[Provider.of<NavBarProvider>(context,listen:true).getCurrentIndex],
           bottomNavigationBar: NavigationBar(
+            height: MediaQuery.of(context).size.height * 0.09,
             selectedIndex: Provider.of<NavBarProvider>(context,listen:true).getCurrentIndex,
             onDestinationSelected: (i){
               Provider.of<NavBarProvider>(context,listen:false).setCurrentIndex = i;

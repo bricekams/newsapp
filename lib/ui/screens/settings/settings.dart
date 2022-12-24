@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:newsapp/data/api/api.dart';
 import 'package:newsapp/ui/screens/settings/components/setting_section.dart';
 import 'package:newsapp/utils/localization.dart';
 import 'package:newsapp/utils/persistance/settings/settings_prefs.dart';
+import 'package:provider/provider.dart';
 import 'components/setting_tile.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -52,6 +54,7 @@ class SettingsScreen extends StatelessWidget {
                           child: GestureDetector(
                             onTap: () {
                               SettingsPrefs.setLang();
+                              Provider.of<NewsAPI>(context,listen: false).fetchNewsCategory();
                             },
                             child: Text(
                               dictionary["@currentLang"][box.get("lang")],

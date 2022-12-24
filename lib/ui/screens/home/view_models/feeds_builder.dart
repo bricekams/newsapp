@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:newsapp/utils/enum.dart';
 import 'package:provider/provider.dart';
 import '../../../../data/api/api.dart';
-import '../components/article_tile/article_tile.dart';
+import '../../../widgets/article_tile/article_tile.dart';
 
 class FeedsBuilder extends StatelessWidget {
   const FeedsBuilder({Key? key}) : super(key: key);

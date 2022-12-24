@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:newsapp/data/api/api.dart';
 import 'package:newsapp/ui/screens/home/components/errors_widgets/api_error_widget.dart';
 import 'package:newsapp/ui/screens/home/components/loading_widget/loading_widget.dart';
@@ -10,9 +11,7 @@ import 'package:newsapp/utils/enum.dart';
 import 'package:provider/provider.dart';
 import 'categories_builder.dart';
 
-
-
-///TODO: refresh page
+ScrollController scrollController = ScrollController();
 
 class ScreenBuilder extends StatefulWidget {
   const ScreenBuilder({Key? key}) : super(key: key);
@@ -22,7 +21,6 @@ class ScreenBuilder extends StatefulWidget {
 }
 
 class _ScreenBuilderState extends State<ScreenBuilder> {
-  ScrollController scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
@@ -46,14 +44,21 @@ class _ScreenBuilderState extends State<ScreenBuilder> {
 
     return SizedBox(
       height: MediaQuery.of(context).size.height,
-      child: ListView(
-        controller: scrollController,
-        shrinkWrap: false,
-        children: [
-          const CategoriesListBuilder(),
-          _bodyBuilder(
-              Provider.of<NewsAPI>(context, listen: true).apiRequestStatus),
-        ],
+      child: RefreshIndicator(
+        color: Theme.of(context).primaryColor,
+        onRefresh: () async {
+          Provider.of<NewsAPI>(context, listen: false).fetchNewsCategory();
+          return Future(() => null);
+        },
+        child: ListView(
+          controller: scrollController,
+          shrinkWrap: false,
+          children: [
+            const CategoriesListBuilder(),
+            _bodyBuilder(
+                Provider.of<NewsAPI>(context, listen: true).apiRequestStatus),
+          ],
+        ),
       ),
     );
   }

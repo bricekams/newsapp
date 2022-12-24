@@ -19,6 +19,17 @@ class HomeScreen extends StatelessWidget {
           )
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: SizedBox(
+        height: 35,
+        width: 35,
+        child: FloatingActionButton(
+          onPressed: (){
+            scrollController.position.restoreOffset(0.0);
+          },
+          child: Icon(Icons.arrow_drop_up,color: Theme.of(context).scaffoldBackgroundColor,),
+        ),
+      ),
       body: const ScreenBuilder(),
     );
   }

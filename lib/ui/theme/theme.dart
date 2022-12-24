@@ -11,8 +11,6 @@ extension MaterialStateSheet on Set<MaterialState> {
 }
 
 class AppTheme {
-  /// Colors Scheme
-  static const Color _white = Colors.white;
   static const Color _black = Colors.black;
   static final Color _primaryLight = Colors.blue.shade900;
   static final Color _primaryDark = Colors.tealAccent.shade700;
@@ -34,6 +32,9 @@ class AppTheme {
           }
           return const IconThemeData(color: _black);
         }),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: _primaryLight,
       ),
       progressIndicatorTheme: ProgressIndicatorThemeData(color: _primaryLight));
   static ThemeData dark = ThemeData(
@@ -58,6 +59,10 @@ class AppTheme {
           return IconThemeData(color: _scaffoldBgLight);
         }),
       ),
-      progressIndicatorTheme: ProgressIndicatorThemeData(color: _primaryDark));
+      progressIndicatorTheme: ProgressIndicatorThemeData(color: _primaryDark),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: Colors.grey.shade300,
+      ),
+  );
 }
 
