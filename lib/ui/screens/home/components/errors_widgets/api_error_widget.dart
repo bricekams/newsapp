@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../../data/api/api.dart';
 
-
-///TODO: style text dark and light mode and action on press button
 
 class ApiErrorWidget extends StatelessWidget {
   const ApiErrorWidget({Key? key}) : super(key: key);

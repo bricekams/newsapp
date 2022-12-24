@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/utils/persistance/settings/settings_prefs.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../data/api/api.dart';
@@ -14,11 +15,11 @@ class NoInternetErrorWidget extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.network_check_rounded,size: 80),
+            Icon(Icons.network_check_rounded,size: 80,color: SettingsPrefs.darkMode?Colors.grey.shade300:Colors.grey.shade800),
             const SizedBox(height: 20),
             Text(
               "Check your internet connection.",
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold,color: SettingsPrefs.darkMode?Colors.grey.shade300:Colors.grey.shade800),
             ),
             const SizedBox(height: 20),
             TextButton(

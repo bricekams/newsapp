@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:newsapp/utils/persistance/settings/settings_prefs.dart';
 import '../../../data/models/article.dart';
 
-//TODO: cache image
+//TODO: placeholder loading
 class ArticleTile extends StatelessWidget {
   final Article article;
 

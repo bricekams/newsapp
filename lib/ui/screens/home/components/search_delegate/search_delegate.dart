@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/data/models/article.dart';
+
 ///TODO: implements search delegate
 class ArticleSearchDelegate extends SearchDelegate<Article?> {
 

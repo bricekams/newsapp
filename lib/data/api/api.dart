@@ -8,8 +8,6 @@ import '../../utils/persistance/settings/settings_prefs.dart';
 import '../models/article.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-/// TODO: check internet connectivity
-
 class NewsAPI with ChangeNotifier {
   final Dio _dio = Dio()
     ..options.connectTimeout = 60000
