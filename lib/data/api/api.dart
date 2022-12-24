@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:newsapp/utils/enum.dart';
 import 'package:newsapp/utils/localization.dart';
 import '../../utils/persistance/settings/settings_prefs.dart';
@@ -19,7 +20,7 @@ class NewsAPI with ChangeNotifier {
 
   final String _apiKey = dotenv.env['NEWS_API_KEY']!;
 
-  APIRequestStatus _apiRequestStatus = APIRequestStatus.unInitialized;
+  APIRequestStatus _apiRequestStatus = APIRequestStatus.loading;
 
   APIRequestStatus get apiRequestStatus => _apiRequestStatus;
 
@@ -30,6 +31,7 @@ class NewsAPI with ChangeNotifier {
 
   int _page = 1;
   final int _defaultApiLastPage = 5;
+
   int get getPage => _page;
 
   void incrementPage() {
@@ -51,8 +53,9 @@ class NewsAPI with ChangeNotifier {
 
   List<Article> articles = [];
 
-  Future<List<Article>> requestNewsByCategories(int i,bool loadMore) async {
-    setAPIRequestStatus = loadMore?APIRequestStatus.loadingMore:APIRequestStatus.loading;
+  Future<List<Article>> requestNewsByCategories(int i, bool loadMore) async {
+    setAPIRequestStatus =
+        loadMore ? APIRequestStatus.loadingMore : APIRequestStatus.loading;
     Response response;
     List<dynamic> body;
     List<Article> articles;
@@ -87,21 +90,28 @@ class NewsAPI with ChangeNotifier {
 
   /// set page = 1
   /// clear the current article list then add new news
-  void fetchNewsCategory() async {
+  void fetchNewsCategory() {
     resetPage();
-    requestNewsByCategories(1,false).then((articles){
-      this.articles.clear();
-      this.articles.addAll(articles);
-      setAPIRequestStatus = APIRequestStatus.loaded;
+    InternetConnectionChecker().hasConnection.then((value) {
+      if (value) {
+        requestNewsByCategories(1, false).then((articles) {
+          this.articles.clear();
+          this.articles.addAll(articles);
+          setAPIRequestStatus = APIRequestStatus.loaded;
+        });
+      } else {
+        setAPIRequestStatus = APIRequestStatus.connectionError;
+      }
     });
   }
 
-  void loadMoreNews() async {
+  void loadMoreNews() {
     /// the api allow us to load 20 by pages only 5 times, 5*100, more available for premium
     if (getPage < _defaultApiLastPage) {
-      requestNewsByCategories(getPage+1,true).then((articles) {
+      requestNewsByCategories(getPage + 1, true).then((articles) {
         this.articles.addAll(articles);
         setAPIRequestStatus = APIRequestStatus.loaded;
+
         /// next page
         incrementPage();
       }).onError((error, stackTrace) {
@@ -110,6 +120,4 @@ class NewsAPI with ChangeNotifier {
       });
     }
   }
-
-
 }

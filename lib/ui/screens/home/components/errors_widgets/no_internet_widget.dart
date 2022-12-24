@@ -1,12 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../../data/api/api.dart';
 
 class NoInternetErrorWidget extends StatelessWidget {
   const NoInternetErrorWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("No Internet"),
+    return Container(
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.22),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.network_check_rounded,size: 80),
+            const SizedBox(height: 20),
+            Text(
+              "Check your internet connection.",
+              style: Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith((states) => Colors.grey.shade300),
+              ),
+              onPressed: (){
+                Provider.of<NewsAPI>(context, listen: false).fetchNewsCategory();
+              },
+              child: Text(
+                "Try again",
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Colors.grey.shade700),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

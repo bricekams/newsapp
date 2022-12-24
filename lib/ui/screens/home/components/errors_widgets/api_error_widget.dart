@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../../data/api/api.dart';
 
 
 ///TODO: style text dark and light mode and action on press button
@@ -25,7 +28,9 @@ class ApiErrorWidget extends StatelessWidget {
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.resolveWith((states) => Colors.grey.shade300),
               ),
-              onPressed: (){},
+              onPressed: (){
+                Provider.of<NewsAPI>(context, listen: false).fetchNewsCategory();
+              },
               child: Text(
                   "Try again",
                 style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Colors.grey.shade700),

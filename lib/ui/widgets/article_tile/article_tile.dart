@@ -37,8 +37,9 @@ class ArticleTile extends StatelessWidget {
       width: 100,
       child: CachedNetworkImage(
         imageUrl: url,
-        placeholder: (context, url) => const Center(
-          child: CircularProgressIndicator(),
+        placeholder: (context, url) => Ink.image(
+          image: SettingsPrefs.darkMode?const AssetImage("assets/placeholder_dark.png"):const AssetImage("assets/placeholder.png"),
+          fit: BoxFit.cover,
         ),
         errorWidget: (context, url, error) => Ink.image(
           image: SettingsPrefs.darkMode?const AssetImage("assets/placeholder_dark.png"):const AssetImage("assets/placeholder.png"),
