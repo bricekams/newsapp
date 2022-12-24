@@ -45,6 +45,7 @@ class _ScreenBuilderState extends State<ScreenBuilder> {
     return SizedBox(
       height: MediaQuery.of(context).size.height,
       child: RefreshIndicator(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         color: Theme.of(context).primaryColor,
         onRefresh: () async {
           Provider.of<NewsAPI>(context, listen: false).fetchNewsCategory();
