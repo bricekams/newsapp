@@ -53,7 +53,6 @@ class _ScreenBuilderState extends State<ScreenBuilder> {
         },
         child: ListView(
           controller: scrollController,
-          shrinkWrap: false,
           children: [
             const CategoriesListBuilder(),
             _bodyBuilder(

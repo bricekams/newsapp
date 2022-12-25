@@ -72,9 +72,9 @@ const Map<String, dynamic> dictionary = {
     "en": "Date",
     "fr":"Date"
   },
-  "@readFullArticle":{
-    "en": "Read the full article",
-    "fr":"Lire l'article complet"
+  "@read":{
+    "en": "Read",
+    "fr":"Lire"
   },
   "@loading":{
     "en":"Loading news...",
@@ -128,13 +128,13 @@ const Map<String, dynamic> dictionary = {
     "en":"Do not show again!",
     "fr":"Ne plus montrer!"
   },
-  "@emptyData":{
+  "@error":{
     "en":"Something went wrong but it's not your fault!",
     "fr":"Un erreur est survenue, ce n'est pas votre faute!"
   },
   "@tryAgain":{
     "en":"Try again",
-    "fr":"Réessayez!"
+    "fr":"Réessayez"
   },
   "@hasNoDesc":{
     "en":"Has no description",
@@ -144,4 +144,8 @@ const Map<String, dynamic> dictionary = {
     "en":"English  🇬🇧",
     "fr":"Francais  🇫🇷"
   },
+  "@internetError": {
+    "en":"Check your internet connection and try again.",
+    "fr":"Vérifiez votre connexion internet puis réessayez."
+  }
 };

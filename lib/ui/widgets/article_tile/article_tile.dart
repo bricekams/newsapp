@@ -1,35 +1,95 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:newsapp/utils/localization.dart';
+import 'package:newsapp/utils/persistance/bookmarks/boorkmarks_storage.dart';
 import 'package:newsapp/utils/persistance/settings/settings_prefs.dart';
 import '../../../data/models/article.dart';
 
 //TODO: placeholder loading and evict from cache
+
 class ArticleTile extends StatelessWidget {
   final Article article;
   final String lang;
   final bool darkMode;
-  const ArticleTile({Key? key, required this.article, required this.lang, required this.darkMode}) : super(key: key);
+
+  const ArticleTile(
+      {Key? key,
+      required this.article,
+      required this.lang,
+      required this.darkMode})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        article.source?.name ?? "No source",
-        style: Theme.of(context).textTheme.bodyText1?.copyWith(
-              color: SettingsPrefs.darkMode
-                  ? Colors.grey.shade200
-                  : Colors.grey.shade700,
-            ),
+    Color bgColor = Colors.grey.shade300;
+    String bookmarkKey =
+        "${article.source?.name ?? ""}${article.publishedAt ?? ""}";
+    bool isBookmarked = BookmarkStorage.isBookmarked(key: bookmarkKey);
+    return Slidable(
+      startActionPane: ActionPane(
+        motion: const StretchMotion(),
+        children: [
+          SlidableAction(
+            backgroundColor: Theme.of(context).primaryColor,
+            onPressed: (context) {},
+            icon: Icons.share,
+          ),
+          ValueListenableBuilder<Box<Article>>(
+            valueListenable: Hive.box<Article>('bookmarks').listenable(),
+            builder: (context,box,child){
+              return SlidableAction(
+                flex: 2,
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                backgroundColor: bgColor,
+                label: box.containsKey(bookmarkKey)?dictionary['@removeBookmark'][lang]:dictionary['@addBookmark'][lang],
+                onPressed: (context) {
+                  if (box.containsKey(bookmarkKey)) {
+                    BookmarkStorage.removeBookmark(key: bookmarkKey);
+                  } else {
+                    BookmarkStorage.addBookmark(article: article);
+                  }
+                },
+                icon: box.containsKey(bookmarkKey)
+                    ? Icons.bookmark_remove_outlined
+                    : Icons.bookmark_add_outlined,
+              );
+            },
+          )
+        ],
       ),
-      subtitle: Text(
-        article.title ?? "No title",
-        maxLines: 3,
-        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              overflow: TextOverflow.ellipsis,
-            ),
+      endActionPane: ActionPane(
+        motion: const StretchMotion(),
+        children: [
+          SlidableAction(
+            label: dictionary['@read'][lang],
+            backgroundColor: bgColor,
+            foregroundColor: Theme.of(context).primaryColor,
+            onPressed: (context) {},
+            icon: Icons.open_in_new,
+          ),
+        ],
       ),
-      trailing: _imgBox(article.urlToImage ?? ""),
+      child: ListTile(
+        title: Text(
+          article.source?.name ?? "No source",
+          style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                color: SettingsPrefs.darkMode
+                    ? Colors.grey.shade200
+                    : Colors.grey.shade700,
+              ),
+        ),
+        subtitle: Text(
+          article.title ?? "No title",
+          maxLines: 3,
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                overflow: TextOverflow.ellipsis,
+              ),
+        ),
+        trailing: _imgBox(article.urlToImage ?? ""),
+      ),
     );
   }
 
@@ -39,11 +99,15 @@ class ArticleTile extends StatelessWidget {
       child: CachedNetworkImage(
         imageUrl: url,
         placeholder: (context, url) => Ink.image(
-          image: darkMode?const AssetImage("assets/placeholder_dark.png"):const AssetImage("assets/placeholder.png"),
+          image: darkMode
+              ? const AssetImage("assets/placeholder_dark.png")
+              : const AssetImage("assets/placeholder.png"),
           fit: BoxFit.cover,
         ),
         errorWidget: (context, url, error) => Ink.image(
-          image: darkMode?const AssetImage("assets/placeholder_dark.png"):const AssetImage("assets/placeholder.png"),
+          image: darkMode
+              ? const AssetImage("assets/placeholder_dark.png")
+              : const AssetImage("assets/placeholder.png"),
           fit: BoxFit.cover,
         ),
       ),

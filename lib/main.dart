@@ -5,6 +5,7 @@ import 'package:newsapp/data/models/source.dart';
 import 'package:newsapp/ui/screens/main_screen.dart';
 import 'package:newsapp/ui/theme/theme.dart';
 import 'package:newsapp/ui/theme/theme_provider.dart';
+import 'package:newsapp/utils/persistance/bookmarks/boorkmarks_storage.dart';
 import 'package:newsapp/utils/persistance/settings/settings_prefs.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -17,6 +18,7 @@ void main() async {
   Source.registerAdapter();
   await Hive.initFlutter();
   await SettingsPrefs.openBox();
+  await BookmarkStorage.openBox();
   SettingsPrefs.initBox();
   runApp(
     MultiProvider(
