@@ -28,11 +28,13 @@ class _ScreenBuilderState extends State<ScreenBuilder> {
       }
     });
     scrollController.addListener(() {
-      /// if scroll til the end and data are not already loading
-      if (scrollController.offset ==
-          scrollController.position.maxScrollExtent && !Provider.of<NewsAPI>(context,listen: false).apiRequestStatus.isLoadingMore) {
-        log("Scroll: maxScrollExtent reached");
-        Provider.of<NewsAPI>(context, listen: false).loadMoreNews();
+      if(mounted){
+        /// if scroll til the end and data are not already loading
+        if (scrollController.offset ==
+            scrollController.position.maxScrollExtent && !Provider.of<NewsAPI>(context,listen: false).apiRequestStatus.isLoadingMore) {
+          log("Scroll: maxScrollExtent reached");
+          Provider.of<NewsAPI>(context, listen: false).loadMoreNews();
+        }
       }
     });
   }

@@ -40,3 +40,17 @@ class NoInternetErrorWidget extends StatelessWidget {
     );
   }
 }
+
+Widget _boxImg() {
+  return Container();
+}
+
+class BoxImg extends StatelessWidget {
+  const BoxImg({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+

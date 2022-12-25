@@ -143,5 +143,5 @@ const Map<String, dynamic> dictionary = {
   "@currentLang":{
     "en":"English  🇬🇧",
     "fr":"Francais  🇫🇷"
-  }
+  },
 };

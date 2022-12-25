@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/ui/screens/home/components/category_chip/category_chip.dart';
 import 'package:newsapp/utils/localization.dart';
+import '../../../../utils/persistance/settings/settings_prefs.dart';
 
 class CategoriesListBuilder extends StatelessWidget {
   const CategoriesListBuilder({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String lang = SettingsPrefs.lang;
     return SizedBox(
       height: 50,
       width: MediaQuery.of(context).size.width,
@@ -20,7 +22,7 @@ class CategoriesListBuilder extends StatelessWidget {
           return Padding(
             padding:
                 index == 0 ? const EdgeInsets.only(left: 7) : EdgeInsets.zero,
-            child: CategoryChip(index: index),
+            child: CategoryChip(index: index,lang: lang,),
           );
         },
       ),

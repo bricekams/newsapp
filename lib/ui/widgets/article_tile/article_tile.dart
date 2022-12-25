@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:newsapp/utils/persistance/settings/settings_prefs.dart';
 import '../../../data/models/article.dart';
 
-//TODO: placeholder loading
+//TODO: placeholder loading and evict from cache
 class ArticleTile extends StatelessWidget {
   final Article article;
-
-  const ArticleTile({Key? key, required this.article}) : super(key: key);
+  final String lang;
+  final bool darkMode;
+  const ArticleTile({Key? key, required this.article, required this.lang, required this.darkMode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +39,11 @@ class ArticleTile extends StatelessWidget {
       child: CachedNetworkImage(
         imageUrl: url,
         placeholder: (context, url) => Ink.image(
-          image: SettingsPrefs.darkMode?const AssetImage("assets/placeholder_dark.png"):const AssetImage("assets/placeholder.png"),
+          image: darkMode?const AssetImage("assets/placeholder_dark.png"):const AssetImage("assets/placeholder.png"),
           fit: BoxFit.cover,
         ),
         errorWidget: (context, url, error) => Ink.image(
-          image: SettingsPrefs.darkMode?const AssetImage("assets/placeholder_dark.png"):const AssetImage("assets/placeholder.png"),
+          image: darkMode?const AssetImage("assets/placeholder_dark.png"):const AssetImage("assets/placeholder.png"),
           fit: BoxFit.cover,
         ),
       ),

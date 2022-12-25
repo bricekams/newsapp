@@ -7,12 +7,13 @@ import '../../../../../utils/localization.dart';
 
 class CategoryChip extends StatelessWidget {
   final int index;
+  final String lang;
 
-  const CategoryChip({Key? key, required this.index}) : super(key: key);
+  const CategoryChip({Key? key, required this.index, required this.lang}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String lang = SettingsPrefs.lang;
+
     String label = categories[lang]![index];
 
     return GestureDetector(
