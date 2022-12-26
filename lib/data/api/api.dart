@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:newsapp/utils/enum.dart';
 import 'package:newsapp/utils/localization.dart';
+import '../../ui/screens/home/view_models/screen_builder.dart';
 import '../../utils/persistance/settings/settings_prefs.dart';
 import '../models/article.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -96,6 +97,8 @@ class NewsAPI with ChangeNotifier {
           this.articles.clear();
           this.articles.addAll(articles);
           setAPIRequestStatus = APIRequestStatus.loaded;
+          /// reset offset when changing category
+          if(scrollController.hasClients) scrollController.position.restoreOffset(0);
         });
       } else {
         setAPIRequestStatus = APIRequestStatus.connectionError;
@@ -109,7 +112,6 @@ class NewsAPI with ChangeNotifier {
       requestNewsByCategories(getPage + 1, true).then((articles) {
         this.articles.addAll(articles);
         setAPIRequestStatus = APIRequestStatus.loaded;
-
         /// next page
         incrementPage();
       }).onError((error, stackTrace) {

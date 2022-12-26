@@ -2,10 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:newsapp/ui/screens/webview/webview.dart';
 import 'package:newsapp/utils/localization.dart';
 import 'package:newsapp/utils/persistance/bookmarks/boorkmarks_storage.dart';
 import 'package:newsapp/utils/persistance/settings/settings_prefs.dart';
-import '../../../data/models/article.dart';
+import '../../../../../data/models/article.dart';
 
 //TODO: placeholder loading and evict from cache
 
@@ -40,8 +41,6 @@ class ArticleTile extends StatelessWidget {
             valueListenable: Hive.box<Article>('bookmarks').listenable(),
             builder: (context,box,child){
               return SlidableAction(
-                flex: 2,
-                padding: const EdgeInsets.symmetric(horizontal: 5),
                 backgroundColor: bgColor,
                 label: box.containsKey(bookmarkKey)?dictionary['@removeBookmark'][lang]:dictionary['@addBookmark'][lang],
                 onPressed: (context) {
@@ -66,7 +65,12 @@ class ArticleTile extends StatelessWidget {
             label: dictionary['@read'][lang],
             backgroundColor: bgColor,
             foregroundColor: Theme.of(context).primaryColor,
-            onPressed: (context) {},
+            onPressed: (context) {
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context)=>ArticleWebView(url: article.url??""))
+              // );
+            },
             icon: Icons.open_in_new,
           ),
         ],
@@ -98,17 +102,23 @@ class ArticleTile extends StatelessWidget {
       width: 100,
       child: CachedNetworkImage(
         imageUrl: url,
-        placeholder: (context, url) => Ink.image(
-          image: darkMode
-              ? const AssetImage("assets/placeholder_dark.png")
-              : const AssetImage("assets/placeholder.png"),
-          fit: BoxFit.cover,
+        placeholder: (context, url) => Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: darkMode
+                  ? const AssetImage("assets/placeholder_dark.png")
+                  : const AssetImage("assets/placeholder.png"),
+            )
+          ),
         ),
-        errorWidget: (context, url, error) => Ink.image(
-          image: darkMode
-              ? const AssetImage("assets/placeholder_dark.png")
-              : const AssetImage("assets/placeholder.png"),
-          fit: BoxFit.cover,
+        errorWidget: (context, url, error) => Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                image: darkMode
+                    ? const AssetImage("assets/placeholder_dark.png")
+                    : const AssetImage("assets/placeholder.png"),
+              )
+          ),
         ),
       ),
     );

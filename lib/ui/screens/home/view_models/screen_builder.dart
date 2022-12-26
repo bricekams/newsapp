@@ -5,7 +5,6 @@ import 'package:newsapp/ui/screens/home/components/errors_widgets/api_error_widg
 import 'package:newsapp/ui/screens/home/components/errors_widgets/no_internet_widget.dart';
 import 'package:newsapp/ui/screens/home/components/loading_widget/loading_widget.dart';
 import 'package:newsapp/ui/screens/home/view_models/feeds_builder.dart';
-import 'package:newsapp/ui/screens/home/view_models/headline_builder.dart';
 import 'package:newsapp/utils/enum.dart';
 import 'package:provider/provider.dart';
 import 'categories_builder.dart';
@@ -41,7 +40,6 @@ class _ScreenBuilderState extends State<ScreenBuilder> {
 
   @override
   Widget build(BuildContext context) {
-
     return SizedBox(
       height: MediaQuery.of(context).size.height,
       child: RefreshIndicator(
@@ -51,8 +49,7 @@ class _ScreenBuilderState extends State<ScreenBuilder> {
           Provider.of<NewsAPI>(context, listen: false).fetchNewsCategory();
           return Future(() => null);
         },
-        child: ListView(
-          controller: scrollController,
+        child: Column(
           children: [
             const CategoriesListBuilder(),
             _bodyBuilder(
@@ -87,10 +84,6 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      primary: false,
-      shrinkWrap: true,
-      children: const [HeadlineBuilder(), FeedsBuilder()],
-    );
+    return const FeedsBuilder();
   }
 }

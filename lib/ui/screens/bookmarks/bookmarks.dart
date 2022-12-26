@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:newsapp/data/models/article.dart';
-import 'package:newsapp/ui/widgets/article_tile/article_tile.dart';
+import 'package:newsapp/ui/screens/home/components/article_tile/article_tile.dart';
 import 'package:newsapp/utils/localization.dart';
 import 'package:newsapp/utils/persistance/settings/settings_prefs.dart';
-
 import '../../../utils/persistance/bookmarks/boorkmarks_storage.dart';
-/// TODO: bookmarks save and read articles
+
 class BookmarksScreen extends StatelessWidget {
   const BookmarksScreen({Key? key}) : super(key: key);
 
