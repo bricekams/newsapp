@@ -9,8 +9,9 @@ class CategoriesListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String lang = SettingsPrefs.lang;
-    return SizedBox(
+    return Container(
       height: 50,
+      color: Theme.of(context).scaffoldBackgroundColor,
       width: MediaQuery.of(context).size.width,
       child: ListView.separated(
         separatorBuilder: (context, i) {

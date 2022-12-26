@@ -18,14 +18,15 @@ class CategoryChip extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Provider.of<NewsAPI>(context, listen: false).setCategoryIndex = index;
+        if( Provider.of<NewsAPI>(context, listen: false).currentCategoryIndex !=
+            index) Provider.of<NewsAPI>(context, listen: false).setCategoryIndex = index;
       },
       child: Chip(
         backgroundColor:
-            Provider.of<NewsAPI>(context, listen: true).currentCategoryIndex ==
-                    index
-                ? Theme.of(context).primaryColor
-                : Colors.grey.shade300,
+        Provider.of<NewsAPI>(context, listen: true).currentCategoryIndex ==
+            index
+            ? Theme.of(context).primaryColor
+            : Colors.grey.shade300,
         label: Row(
           children: [
             Text(
@@ -33,16 +34,16 @@ class CategoryChip extends StatelessWidget {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Provider.of<NewsAPI>(context, listen: true)
-                              .currentCategoryIndex ==
-                          index
+                      .currentCategoryIndex ==
+                      index
                       ? Colors.white
                       : SettingsPrefs.darkMode?Theme.of(context).scaffoldBackgroundColor:null),
             ),
 
             /// if current chip and request loading
             if (Provider.of<NewsAPI>(context, listen: true)
-                        .currentCategoryIndex ==
-                    index &&
+                .currentCategoryIndex ==
+                index &&
                 Provider.of<NewsAPI>(context, listen: true)
                     .apiRequestStatus
                     .isLoading &&

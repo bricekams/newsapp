@@ -49,13 +49,8 @@ class _ScreenBuilderState extends State<ScreenBuilder> {
           Provider.of<NewsAPI>(context, listen: false).fetchNewsCategory();
           return Future(() => null);
         },
-        child: Column(
-          children: [
-            const CategoriesListBuilder(),
-            _bodyBuilder(
-                Provider.of<NewsAPI>(context, listen: true).apiRequestStatus),
-          ],
-        ),
+        child: _bodyBuilder(
+            Provider.of<NewsAPI>(context, listen: true).apiRequestStatus),
       ),
     );
   }

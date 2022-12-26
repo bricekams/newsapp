@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/ui/screens/home/components/search_delegate/search_delegate.dart';
+import 'package:newsapp/ui/screens/home/view_models/categories_builder.dart';
 import 'package:newsapp/ui/screens/home/view_models/screen_builder.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,6 +11,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("NewsApp"),
+        elevation: 0,
         actions: [
           IconButton(
             onPressed: () {
@@ -18,6 +20,10 @@ class HomeScreen extends StatelessWidget {
             icon: const Icon(Icons.search),
           )
         ],
+        bottom: PreferredSize(
+          preferredSize: Size(MediaQuery.of(context).size.width, 50),
+          child: const CategoriesListBuilder(),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: SizedBox(

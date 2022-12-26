@@ -75,24 +75,27 @@ class ArticleTile extends StatelessWidget {
           ),
         ],
       ),
-      child: ListTile(
-        title: Text(
-          article.source?.name ?? "No source",
-          style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                color: SettingsPrefs.darkMode
-                    ? Colors.grey.shade200
-                    : Colors.grey.shade700,
-              ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10.0),
+        child: ListTile(
+          title: Text(
+            article.source?.name ?? "No source",
+            style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                  color: SettingsPrefs.darkMode
+                      ? Colors.grey.shade200
+                      : Colors.grey.shade700,
+                ),
+          ),
+          subtitle: Text(
+            article.title ?? "No title",
+            maxLines: 3,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  overflow: TextOverflow.ellipsis,
+                ),
+          ),
+          trailing: _imgBox(article.urlToImage ?? ""),
         ),
-        subtitle: Text(
-          article.title ?? "No title",
-          maxLines: 3,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                overflow: TextOverflow.ellipsis,
-              ),
-        ),
-        trailing: _imgBox(article.urlToImage ?? ""),
       ),
     );
   }

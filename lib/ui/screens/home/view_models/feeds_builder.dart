@@ -13,38 +13,33 @@ class FeedsBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     String lang = SettingsPrefs.lang;
     bool darkMode = SettingsPrefs.darkMode;
-    return Expanded(
-      child: ListView.separated(
-        controller: scrollController,
-        physics: const ScrollPhysics(),
-        separatorBuilder: (context, i) {
-          return const SizedBox(height: 10);
-        },
-        itemCount:
-        Provider.of<NewsAPI>(context, listen: true).articles.length + 1,
-        itemBuilder: (context, i) {
-          if (i < Provider.of<NewsAPI>(context, listen: true).articles.length) {
-            return ArticleTile(
-                article: Provider.of<NewsAPI>(context, listen: true).articles[i],lang: lang,darkMode: darkMode);
-          } else {
-            /// to avoid a infinite progress indicator, show it only if data are loading, means that there are more to load
-            if (Provider.of<NewsAPI>(context, listen: false)
-                .apiRequestStatus
-                .isLoadingMore) {
-              return Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                child: const Center(
-                  child: SizedBox(
-                    width: 60,
-                    child: LinearProgressIndicator(minHeight: 3),
-                  ),
+    return ListView.builder(
+      controller: scrollController,
+      shrinkWrap: false,
+      itemCount:
+      Provider.of<NewsAPI>(context, listen: true).articles.length + 1,
+      itemBuilder: (context, i) {
+        if (i < Provider.of<NewsAPI>(context, listen: true).articles.length) {
+          return ArticleTile(
+              article: Provider.of<NewsAPI>(context, listen: true).articles[i],lang: lang,darkMode: darkMode);
+        } else {
+          /// to avoid a infinite progress indicator, show it only if data are loading, means that there are more to load
+          if (Provider.of<NewsAPI>(context, listen: false)
+              .apiRequestStatus
+              .isLoadingMore) {
+            return Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              child: const Center(
+                child: SizedBox(
+                  width: 60,
+                  child: LinearProgressIndicator(minHeight: 3),
                 ),
-              );
-            }
-            return const SizedBox();
+              ),
+            );
           }
-        },
-      ),
+          return const SizedBox();
+        }
+      },
     );
   }
 }

@@ -21,10 +21,7 @@ class BookmarksScreen extends StatelessWidget {
           ValueListenableBuilder<Box<Article>>(
             valueListenable: Hive.box<Article>('bookmarks').listenable(),
             builder: (context,box,child){
-              return ListView.separated(
-                separatorBuilder: (context,i){
-                  return const SizedBox(height: 10);
-                },
+              return ListView.builder(
                 itemCount: BookmarkStorage.allBookmarks.length,
                 itemBuilder: (context,index){
                   return ArticleTile(article: BookmarkStorage.allBookmarks.toList().reversed.toList()[index], lang: lang, darkMode: darkMode);
