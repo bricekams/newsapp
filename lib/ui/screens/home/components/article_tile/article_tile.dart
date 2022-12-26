@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:newsapp/ui/screens/webview/webview.dart';
 import 'package:newsapp/utils/localization.dart';
 import 'package:newsapp/utils/persistance/bookmarks/boorkmarks_storage.dart';
 import 'package:newsapp/utils/persistance/settings/settings_prefs.dart';
@@ -28,55 +27,55 @@ class ArticleTile extends StatelessWidget {
     String bookmarkKey =
         "${article.source?.name ?? ""}${article.publishedAt ?? ""}";
     bool isBookmarked = BookmarkStorage.isBookmarked(key: bookmarkKey);
-    return Slidable(
-      startActionPane: ActionPane(
-        motion: const StretchMotion(),
-        children: [
-          SlidableAction(
-            backgroundColor: Theme.of(context).primaryColor,
-            onPressed: (context) {},
-            icon: Icons.share,
-          ),
-          ValueListenableBuilder<Box<Article>>(
-            valueListenable: Hive.box<Article>('bookmarks').listenable(),
-            builder: (context,box,child){
-              return SlidableAction(
-                backgroundColor: bgColor,
-                label: box.containsKey(bookmarkKey)?dictionary['@removeBookmark'][lang]:dictionary['@addBookmark'][lang],
-                onPressed: (context) {
-                  if (box.containsKey(bookmarkKey)) {
-                    BookmarkStorage.removeBookmark(key: bookmarkKey);
-                  } else {
-                    BookmarkStorage.addBookmark(article: article);
-                  }
-                },
-                icon: box.containsKey(bookmarkKey)
-                    ? Icons.bookmark_remove_outlined
-                    : Icons.bookmark_add_outlined,
-              );
-            },
-          )
-        ],
-      ),
-      endActionPane: ActionPane(
-        motion: const StretchMotion(),
-        children: [
-          SlidableAction(
-            label: dictionary['@read'][lang],
-            backgroundColor: bgColor,
-            foregroundColor: Theme.of(context).primaryColor,
-            onPressed: (context) {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context)=>ArticleWebView(url: article.url??""))
-              // );
-            },
-            icon: Icons.open_in_new,
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10.0),
+    return Padding(
+      padding: const EdgeInsets.only(top: 10.0),
+      child: Slidable(
+        startActionPane: ActionPane(
+          motion: const StretchMotion(),
+          children: [
+            SlidableAction(
+              backgroundColor: Theme.of(context).primaryColor,
+              onPressed: (context) {},
+              icon: Icons.share,
+            ),
+            ValueListenableBuilder<Box<Article>>(
+              valueListenable: Hive.box<Article>('bookmarks').listenable(),
+              builder: (context,box,child){
+                return SlidableAction(
+                  backgroundColor: bgColor,
+                  label: box.containsKey(bookmarkKey)?dictionary['@removeBookmark'][lang]:dictionary['@addBookmark'][lang],
+                  onPressed: (context) {
+                    if (box.containsKey(bookmarkKey)) {
+                      BookmarkStorage.removeBookmark(key: bookmarkKey);
+                    } else {
+                      BookmarkStorage.addBookmark(article: article);
+                    }
+                  },
+                  icon: box.containsKey(bookmarkKey)
+                      ? Icons.bookmark_remove_outlined
+                      : Icons.bookmark_add_outlined,
+                );
+              },
+            )
+          ],
+        ),
+        endActionPane: ActionPane(
+          motion: const StretchMotion(),
+          children: [
+            SlidableAction(
+              label: dictionary['@read'][lang],
+              backgroundColor: bgColor,
+              foregroundColor: Theme.of(context).primaryColor,
+              onPressed: (context) {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context)=>ArticleWebView(url: article.url??""))
+                // );
+              },
+              icon: Icons.open_in_new,
+            ),
+          ],
+        ),
         child: ListTile(
           title: Text(
             article.source?.name ?? "No source",

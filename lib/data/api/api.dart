@@ -66,9 +66,9 @@ class NewsAPI with ChangeNotifier {
       body = response.data["articles"];
       articles = body.map((item) => Article.fromJson(item)).toList();
       return articles;
-    } on DioError {
+    } on DioError catch (err) {
       setAPIRequestStatus = APIRequestStatus.error;
-      rethrow;
+      throw "DioError: ${err.message}";
     }
   }
 
@@ -82,8 +82,8 @@ class NewsAPI with ChangeNotifier {
       body = response.data["articles"];
       articles = body.map((item) => Article.fromJson(item)).toList();
       return articles;
-    } on DioError {
-      rethrow;
+    } on DioError catch (err) {
+      throw "DioError: ${err.message}";
     }
   }
 

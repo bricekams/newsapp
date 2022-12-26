@@ -28,7 +28,7 @@ class FeedsBuilder extends StatelessWidget {
               .apiRequestStatus
               .isLoadingMore) {
             return Container(
-              margin: const EdgeInsets.only(bottom: 10),
+              margin: const EdgeInsets.only(top: 10,bottom: 10),
               child: const Center(
                 child: SizedBox(
                   width: 60,
