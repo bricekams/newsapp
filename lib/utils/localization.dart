@@ -1,6 +1,6 @@
 const Map<String,List<String>> categories = {
-  "en": ["general","sports","business","health","entertainment","technology","science"],
-  "fr": ["generale","sports","affaires","santé","divertissement","technologie","science"]
+  "en": ["General","Sports","Business","Health","Entertainment","Technology","Science"],
+  "fr": ["Générale","Sports","Affaires","Santé","Divertissement","Technologie","Science"]
 };
 
 const Map<String, dynamic> dictionary = {
@@ -147,5 +147,17 @@ const Map<String, dynamic> dictionary = {
   "@internetError": {
     "en":"Check your internet connection and try again.",
     "fr":"Vérifiez votre connexion internet puis réessayez."
+  },
+  "@noTitle": {
+    "en":"Has no title.",
+    "fr":"Sans titre."
+  },
+  "@noSource": {
+    "en":"Unknown source.",
+    "fr":"Source inconnue."
+  },
+  "@searchSm":{
+    "en":"Search something...",
+    "fr":"Faites une recherche..."
   }
 };

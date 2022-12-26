@@ -54,7 +54,7 @@ class SettingsScreen extends StatelessWidget {
                           child: GestureDetector(
                             onTap: () {
                               SettingsPrefs.setLang();
-                              Provider.of<NewsAPI>(context,listen: false).fetchNewsCategory();
+                              Provider.of<NewsAPI>(context,listen: false).fetchNewsByCategory();
                             },
                             child: Text(
                               dictionary["@currentLang"][box.get("lang")],

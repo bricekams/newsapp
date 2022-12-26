@@ -30,7 +30,7 @@ class CategoryChip extends StatelessWidget {
         label: Row(
           children: [
             Text(
-              "${label[0].toUpperCase()}${label.substring(1)}",
+              label,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Provider.of<NewsAPI>(context, listen: true)

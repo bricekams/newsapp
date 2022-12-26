@@ -28,7 +28,7 @@ class NoInternetErrorWidget extends StatelessWidget {
             ),
             onPressed: (){
               Provider.of<NewsAPI>(context, listen: false).articles.clear();
-              Provider.of<NewsAPI>(context, listen: false).fetchNewsCategory();
+              Provider.of<NewsAPI>(context, listen: false).fetchNewsByCategory();
             },
             child: Text(
               dictionary['@tryAgain'][lang],
@@ -38,19 +38,6 @@ class NoInternetErrorWidget extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-Widget _boxImg() {
-  return Container();
-}
-
-class BoxImg extends StatelessWidget {
-  const BoxImg({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
 

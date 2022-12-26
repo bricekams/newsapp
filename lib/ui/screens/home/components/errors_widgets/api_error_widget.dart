@@ -28,7 +28,7 @@ class ApiErrorWidget extends StatelessWidget {
             ),
             onPressed: (){
               Provider.of<NewsAPI>(context, listen: false).articles.clear();
-              Provider.of<NewsAPI>(context, listen: false).fetchNewsCategory();
+              Provider.of<NewsAPI>(context, listen: false).fetchNewsByCategory();
             },
             child: Text(
               dictionary['@tryAgain'][lang],

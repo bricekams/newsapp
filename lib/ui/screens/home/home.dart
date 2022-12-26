@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
         width: 35,
         child: FloatingActionButton(
           onPressed: (){
-            scrollController.position.restoreOffset(0.0);
+            if(scrollController.hasClients) scrollController.position.restoreOffset(0.0);
           },
           child: Icon(Icons.arrow_drop_up,color: Theme.of(context).scaffoldBackgroundColor,),
         ),

@@ -23,10 +23,8 @@ class ArticleTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color bgColor = Colors.grey.shade300;
     String bookmarkKey =
         "${article.source?.name ?? ""}${article.publishedAt ?? ""}";
-    bool isBookmarked = BookmarkStorage.isBookmarked(key: bookmarkKey);
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: Slidable(
@@ -38,12 +36,19 @@ class ArticleTile extends StatelessWidget {
               onPressed: (context) {},
               icon: Icons.share,
             ),
+          ],
+        ),
+        endActionPane: ActionPane(
+          motion: const StretchMotion(),
+          children: [
             ValueListenableBuilder<Box<Article>>(
               valueListenable: Hive.box<Article>('bookmarks').listenable(),
-              builder: (context,box,child){
+              builder: (context, box, child) {
                 return SlidableAction(
-                  backgroundColor: bgColor,
-                  label: box.containsKey(bookmarkKey)?dictionary['@removeBookmark'][lang]:dictionary['@addBookmark'][lang],
+                  backgroundColor: box.containsKey(bookmarkKey)?Colors.red.shade600:Theme.of(context).primaryColor,
+                  label: box.containsKey(bookmarkKey)
+                      ? dictionary['@removeBookmark'][lang]
+                      : dictionary['@addBookmark'][lang],
                   onPressed: (context) {
                     if (box.containsKey(bookmarkKey)) {
                       BookmarkStorage.removeBookmark(key: bookmarkKey);
@@ -56,42 +61,28 @@ class ArticleTile extends StatelessWidget {
                       : Icons.bookmark_add_outlined,
                 );
               },
-            )
-          ],
-        ),
-        endActionPane: ActionPane(
-          motion: const StretchMotion(),
-          children: [
-            SlidableAction(
-              label: dictionary['@read'][lang],
-              backgroundColor: bgColor,
-              foregroundColor: Theme.of(context).primaryColor,
-              onPressed: (context) {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context)=>ArticleWebView(url: article.url??""))
-                // );
-              },
-              icon: Icons.open_in_new,
             ),
           ],
         ),
         child: ListTile(
           title: Text(
-            article.source?.name ?? "No source",
+            article.source?.name ?? dictionary['@noSource'][lang],
             style: Theme.of(context).textTheme.bodyText1?.copyWith(
                   color: SettingsPrefs.darkMode
                       ? Colors.grey.shade200
                       : Colors.grey.shade700,
                 ),
           ),
-          subtitle: Text(
-            article.title ?? "No title",
-            maxLines: 3,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  overflow: TextOverflow.ellipsis,
-                ),
+          subtitle: GestureDetector(
+            onTap: () {},
+            child: Text(
+              article.title ?? dictionary['@noTitle'][lang],
+              maxLines: 3,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+            ),
           ),
           trailing: _imgBox(article.urlToImage ?? ""),
         ),
@@ -106,21 +97,19 @@ class ArticleTile extends StatelessWidget {
         imageUrl: url,
         placeholder: (context, url) => Container(
           decoration: BoxDecoration(
-            image: DecorationImage(
-              image: darkMode
-                  ? const AssetImage("assets/placeholder_dark.png")
-                  : const AssetImage("assets/placeholder.png"),
-            )
-          ),
+              image: DecorationImage(
+            image: darkMode
+                ? const AssetImage("assets/placeholder_dark.png")
+                : const AssetImage("assets/placeholder.png"),
+          )),
         ),
         errorWidget: (context, url, error) => Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-                image: darkMode
-                    ? const AssetImage("assets/placeholder_dark.png")
-                    : const AssetImage("assets/placeholder.png"),
-              )
-          ),
+            image: darkMode
+                ? const AssetImage("assets/placeholder_dark.png")
+                : const AssetImage("assets/placeholder.png"),
+          )),
         ),
       ),
     );

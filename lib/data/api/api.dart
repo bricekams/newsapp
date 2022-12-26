@@ -28,6 +28,15 @@ class NewsAPI with ChangeNotifier {
     notifyListeners();
   }
 
+  APIRequestStatus _searchAPIRequestStatus = APIRequestStatus.unInitialized;
+
+  APIRequestStatus get searchAPIRequestStatus => _searchAPIRequestStatus;
+
+  set setSearchAPIRequestStatus(APIRequestStatus status) {
+    _searchAPIRequestStatus = status;
+    notifyListeners();
+  }
+
   int _page = 1;
   final int _defaultApiLastPage = 5;
 
@@ -47,7 +56,7 @@ class NewsAPI with ChangeNotifier {
 
   set setCategoryIndex(int value) {
     _categoryIndex = value;
-    fetchNewsCategory();
+    fetchNewsByCategory();
   }
 
   List<Article> articles = [];
@@ -60,7 +69,7 @@ class NewsAPI with ChangeNotifier {
     List<Article> articles;
     String lang = SettingsPrefs.lang;
     String endpoint =
-        '/top-headlines?language=$lang&category=${categories['en']?[_categoryIndex]}&page=$i&pageSize=20&apiKey=$_apiKey';
+        '/top-headlines?language=$lang&category=${categories['en']?[_categoryIndex].toLowerCase()}&page=$i&pageSize=20&apiKey=$_apiKey';
     try {
       response = await _dio.get(endpoint);
       body = response.data["articles"];
@@ -76,20 +85,22 @@ class NewsAPI with ChangeNotifier {
     Response response;
     List<dynamic> body;
     String lang = SettingsPrefs.lang;
-    String endpoint = 'everything?language=$lang&q=$query&apiKey=$_apiKey';
+    List<Article> searchResults;
+    String endpoint = '/everything?language=$lang&q=$query&apiKey=$_apiKey';
     try {
       response = await _dio.get(endpoint);
       body = response.data["articles"];
-      articles = body.map((item) => Article.fromJson(item)).toList();
-      return articles;
+      searchResults = body.map((item) => Article.fromJson(item)).toList();
+      return searchResults;
     } on DioError catch (err) {
+      setSearchAPIRequestStatus = APIRequestStatus.searchError;
       throw "DioError: ${err.message}";
     }
   }
 
   /// set page = 1
   /// clear the current article list then add new news
-  void fetchNewsCategory() {
+  void fetchNewsByCategory() {
     resetPage();
     InternetConnectionChecker().hasConnection.then((value) {
       if (value) {
@@ -119,5 +130,24 @@ class NewsAPI with ChangeNotifier {
         setAPIRequestStatus = APIRequestStatus.error;
       });
     }
+  }
+
+  List<Article> searchResults = [];
+
+  void fetchNewsBySearchQuery(String query){
+    InternetConnectionChecker().hasConnection.then((value){
+      if(value) {
+        setSearchAPIRequestStatus = APIRequestStatus.searchLoading;
+        requestNewsBySearch(query).then((results) {
+          searchResults.clear();
+          searchResults.addAll(results);
+        });
+        setSearchAPIRequestStatus = APIRequestStatus.searchLoaded;
+        return;
+      }else{
+        setSearchAPIRequestStatus = APIRequestStatus.searchConnectionError;
+      }
+    });
+
   }
 }

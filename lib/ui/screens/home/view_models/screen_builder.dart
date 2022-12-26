@@ -7,7 +7,6 @@ import 'package:newsapp/ui/screens/home/components/loading_widget/loading_widget
 import 'package:newsapp/ui/screens/home/view_models/feeds_builder.dart';
 import 'package:newsapp/utils/enum.dart';
 import 'package:provider/provider.dart';
-import 'categories_builder.dart';
 
 ScrollController scrollController = ScrollController();
 
@@ -23,7 +22,7 @@ class _ScreenBuilderState extends State<ScreenBuilder> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (Provider.of<NewsAPI>(context, listen: false).articles.isEmpty) {
-        Provider.of<NewsAPI>(context, listen: false).fetchNewsCategory();
+        Provider.of<NewsAPI>(context, listen: false).fetchNewsByCategory();
       }
     });
     scrollController.addListener(() {
@@ -46,7 +45,7 @@ class _ScreenBuilderState extends State<ScreenBuilder> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         color: Theme.of(context).primaryColor,
         onRefresh: () async {
-          Provider.of<NewsAPI>(context, listen: false).fetchNewsCategory();
+          Provider.of<NewsAPI>(context, listen: false).fetchNewsByCategory();
           return Future(() => null);
         },
         child: _bodyBuilder(
