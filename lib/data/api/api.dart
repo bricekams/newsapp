@@ -137,7 +137,6 @@ class NewsAPI with ChangeNotifier {
   void fetchNewsBySearchQuery(String query){
     InternetConnectionChecker().hasConnection.then((value){
       if(value) {
-        setSearchAPIRequestStatus = APIRequestStatus.searchLoading;
         requestNewsBySearch(query).then((results) {
           searchResults.clear();
           searchResults.addAll(results);
@@ -146,7 +145,9 @@ class NewsAPI with ChangeNotifier {
         return;
       }else{
         setSearchAPIRequestStatus = APIRequestStatus.searchConnectionError;
+        return;
       }
+      setSearchAPIRequestStatus = APIRequestStatus.searchLoaded;
     });
 
   }

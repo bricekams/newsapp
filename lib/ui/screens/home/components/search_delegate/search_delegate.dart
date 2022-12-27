@@ -14,6 +14,9 @@ import 'package:provider/provider.dart';
 class ArticleSearchDelegate extends SearchDelegate<Article?> {
   ArticleSearchDelegate();
 
+  String lang = SettingsPrefs.lang;
+  bool darkMode = SettingsPrefs.darkMode;
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -31,6 +34,7 @@ class ArticleSearchDelegate extends SearchDelegate<Article?> {
     return IconButton(
       onPressed: () {
         close(context, null);
+        Provider.of<NewsAPI>(context, listen: false).searchResults.clear();
       },
       icon: const Icon(Icons.arrow_back),
     );
@@ -38,34 +42,34 @@ class ArticleSearchDelegate extends SearchDelegate<Article?> {
 
   @override
   Widget buildResults(BuildContext context) {
-    String toSearch = query;
-    Provider.of<NewsAPI>(context, listen: false).fetchNewsBySearchQuery(toSearch);
-    String lang = SettingsPrefs.lang;
-    bool darkMode = SettingsPrefs.darkMode;
-    if (Provider.of<NewsAPI>(context, listen: true)
-        .searchAPIRequestStatus
-        .isSearchLoading) {
-      return const ExampleUiLoadingAnimation();
+    if (Provider.of<NewsAPI>(context, listen: false).searchResults.isEmpty &&
+        query.isNotEmpty) {
+      Provider.of<NewsAPI>(context, listen: false)
+        ..setSearchAPIRequestStatus = APIRequestStatus.searchLoading
+        ..fetchNewsBySearchQuery(query.characters.string);
+      Provider.of<NewsAPI>(context, listen: false).searchResults.clear();
     }
-    if (Provider.of<NewsAPI>(context, listen: true)
-        .searchAPIRequestStatus
-        .hasSearchError) {
-      return const ApiErrorWidget();
-    }
-    if (Provider.of<NewsAPI>(context, listen: true)
-        .searchAPIRequestStatus
-        .hasSearchConnectionError) {
-      return const NoInternetErrorWidget();
-    }
+    List<Article>results = Provider.of<NewsAPI>(context, listen: false).searchResults;
+    switch (
+        Provider.of<NewsAPI>(context, listen: true).searchAPIRequestStatus) {
+      case APIRequestStatus.searchLoading:
+        return const LoadingShimmer();
+      case APIRequestStatus.searchLoaded:
+        return ListView.builder(
+          itemCount: results.length,
+          itemBuilder: (context, i) {
+            return ArticleTile(
+                lang: lang, article: results[i], darkMode: darkMode);
+          },
+        );
 
-    List<Article> results =
-        Provider.of<NewsAPI>(context, listen: false).searchResults;
-    return ListView.builder(
-      itemCount: results.length,
-      itemBuilder: (context, i) {
-        return ArticleTile(lang: lang, article: results[i], darkMode: darkMode);
-      },
-    );
+      case APIRequestStatus.searchError:
+        return const ApiErrorWidget();
+      case APIRequestStatus.searchConnectionError:
+        return const NoInternetErrorWidget();
+      default:
+        return Container();
+    }
   }
 
   @override
@@ -74,14 +78,14 @@ class ArticleSearchDelegate extends SearchDelegate<Article?> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.search,size: 60,color: Colors.grey),
-          const SizedBox(height: 20,),
+          const Icon(Icons.search, size: 60, color: Colors.grey),
+          const SizedBox(
+            height: 20,
+          ),
           Text(
             dictionary['@searchSm'][SettingsPrefs.lang],
             style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.grey
-            ),
+                fontWeight: FontWeight.bold, color: Colors.grey),
           )
         ],
       ),

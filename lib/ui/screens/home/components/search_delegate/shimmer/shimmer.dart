@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(
     const MaterialApp(
-      home: ExampleUiLoadingAnimation(),
+      home: LoadingShimmer(),
       debugShowCheckedModeBanner: false,
     ),
   );
@@ -29,17 +29,17 @@ const _shimmerGradient = LinearGradient(
   tileMode: TileMode.clamp,
 );
 
-class ExampleUiLoadingAnimation extends StatefulWidget {
-  const ExampleUiLoadingAnimation({
+class LoadingShimmer extends StatefulWidget {
+  const LoadingShimmer({
     super.key,
   });
 
   @override
-  State<ExampleUiLoadingAnimation> createState() =>
-      _ExampleUiLoadingAnimationState();
+  State<LoadingShimmer> createState() =>
+      _LoadingShimmerState();
 }
 
-class _ExampleUiLoadingAnimationState extends State<ExampleUiLoadingAnimation> {
+class _LoadingShimmerState extends State<LoadingShimmer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
