@@ -56,14 +56,14 @@ class _ScreenBuilderState extends State<ScreenBuilder> {
 
   Widget _bodyBuilder(APIRequestStatus status) {
     if (status.isUninitialized) {
-      return const ApiErrorWidget();
+      return const ApiErrorWidget(search: false);
     }
     if (status.isLoading &&
         Provider.of<NewsAPI>(context, listen: false).articles.isEmpty) {
       return const LoadingWidget();
     }
     if (status.hasError) {
-      return const ApiErrorWidget();
+      return const ApiErrorWidget(search: false);
     }
     if (status.hasConnectionError){
       return const NoInternetErrorWidget();

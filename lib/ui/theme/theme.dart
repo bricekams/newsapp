@@ -36,33 +36,38 @@ class AppTheme {
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: _primaryLight,
       ),
+      switchTheme: SwitchThemeData(
+          trackColor: MaterialStateProperty.resolveWith(
+              (states) => states.isSelected ? Colors.blue.shade600 : null),
+          thumbColor: MaterialStateProperty.resolveWith(
+              (states) => states.isSelected ? _primaryLight : null)),
       progressIndicatorTheme: ProgressIndicatorThemeData(color: _primaryLight));
   static ThemeData dark = ThemeData(
-      primaryColor: _primaryDark,
-      brightness: Brightness.dark,
-      scaffoldBackgroundColor: _scaffoldBgDark,
-      appBarTheme: AppBarTheme(backgroundColor: _primaryDark),
-      switchTheme: SwitchThemeData(
-          thumbColor: MaterialStateProperty.resolveWith(
-              (states) => states.isSelected ? _primaryDark : null)),
-      navigationBarTheme: NavigationBarThemeData(
-        indicatorColor: _primaryDark,
-        backgroundColor: _scaffoldBgDark,
-        labelTextStyle: MaterialStateProperty.resolveWith((states) => TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 12,
-            color: states.isSelected ? _primaryDark : null)),
-        iconTheme: MaterialStateProperty.resolveWith((states) {
-          if (states.isSelected) {
-            return IconThemeData(color: _scaffoldBgDark);
-          }
-          return IconThemeData(color: _scaffoldBgLight);
-        }),
-      ),
-      progressIndicatorTheme: ProgressIndicatorThemeData(color: _primaryDark),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: Colors.grey.shade300,
-      ),
+    primaryColor: _primaryDark,
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: _scaffoldBgDark,
+    appBarTheme: AppBarTheme(backgroundColor: _primaryDark),
+    switchTheme: SwitchThemeData(
+      thumbColor: MaterialStateProperty.resolveWith(
+          (states) => states.isSelected ? _primaryDark : null),
+    ),
+    navigationBarTheme: NavigationBarThemeData(
+      indicatorColor: _primaryDark,
+      backgroundColor: _scaffoldBgDark,
+      labelTextStyle: MaterialStateProperty.resolveWith((states) => TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+          color: states.isSelected ? _primaryDark : null)),
+      iconTheme: MaterialStateProperty.resolveWith((states) {
+        if (states.isSelected) {
+          return IconThemeData(color: _scaffoldBgDark);
+        }
+        return IconThemeData(color: _scaffoldBgLight);
+      }),
+    ),
+    progressIndicatorTheme: ProgressIndicatorThemeData(color: _primaryDark),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: Colors.grey.shade300,
+    ),
   );
 }
-

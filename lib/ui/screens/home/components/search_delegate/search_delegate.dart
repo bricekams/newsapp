@@ -42,14 +42,17 @@ class ArticleSearchDelegate extends SearchDelegate<Article?> {
 
   @override
   Widget buildResults(BuildContext context) {
+
     if (Provider.of<NewsAPI>(context, listen: false).searchResults.isEmpty &&
         query.isNotEmpty) {
       Provider.of<NewsAPI>(context, listen: false)
         ..setSearchAPIRequestStatus = APIRequestStatus.searchLoading
         ..fetchNewsBySearchQuery(query.characters.string);
-      Provider.of<NewsAPI>(context, listen: false).searchResults.clear();
     }
-    List<Article>results = Provider.of<NewsAPI>(context, listen: false).searchResults;
+
+    List<Article> results =
+        Provider.of<NewsAPI>(context, listen: false).searchResults;
+
     switch (
         Provider.of<NewsAPI>(context, listen: true).searchAPIRequestStatus) {
       case APIRequestStatus.searchLoading:
@@ -64,7 +67,7 @@ class ArticleSearchDelegate extends SearchDelegate<Article?> {
         );
 
       case APIRequestStatus.searchError:
-        return const ApiErrorWidget();
+        return const ApiErrorWidget(search: true);
       case APIRequestStatus.searchConnectionError:
         return const NoInternetErrorWidget();
       default:
@@ -74,6 +77,17 @@ class ArticleSearchDelegate extends SearchDelegate<Article?> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    if (Provider.of<NewsAPI>(context, listen: false).searchResults.isNotEmpty) {
+      List<Article> results =
+          Provider.of<NewsAPI>(context, listen: false).searchResults;
+      return ListView.builder(
+        itemCount: results.length,
+        itemBuilder: (context, i) {
+          return ArticleTile(
+              lang: lang, article: results[i], darkMode: darkMode);
+        },
+      );
+    }
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,

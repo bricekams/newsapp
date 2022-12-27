@@ -6,6 +6,7 @@ import 'package:newsapp/utils/localization.dart';
 import 'package:newsapp/utils/persistance/bookmarks/boorkmarks_storage.dart';
 import 'package:newsapp/utils/persistance/settings/settings_prefs.dart';
 import '../../../../../data/models/article.dart';
+import '../../../webview/webview.dart';
 
 //TODO: placeholder loading and evict from cache
 
@@ -25,6 +26,7 @@ class ArticleTile extends StatelessWidget {
   Widget build(BuildContext context) {
     String bookmarkKey =
         "${article.source?.name ?? ""}${article.publishedAt ?? ""}";
+
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: Slidable(
@@ -45,7 +47,9 @@ class ArticleTile extends StatelessWidget {
               valueListenable: Hive.box<Article>('bookmarks').listenable(),
               builder: (context, box, child) {
                 return SlidableAction(
-                  backgroundColor: box.containsKey(bookmarkKey)?Colors.red.shade600:Theme.of(context).primaryColor,
+                  backgroundColor: box.containsKey(bookmarkKey)
+                      ? Colors.red.shade600
+                      : Theme.of(context).primaryColor,
                   label: box.containsKey(bookmarkKey)
                       ? dictionary['@removeBookmark'][lang]
                       : dictionary['@addBookmark'][lang],
@@ -73,8 +77,15 @@ class ArticleTile extends StatelessWidget {
                       : Colors.grey.shade700,
                 ),
           ),
-          subtitle: GestureDetector(
-            onTap: () {},
+          subtitle: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ArticleWebView(url: article.url ?? ""),
+                ),
+              );
+            },
             child: Text(
               article.title ?? dictionary['@noTitle'][lang],
               maxLines: 3,
