@@ -1,12 +1,48 @@
-# newsapp
+# NewsApp
 
-A new Flutter project.
+I created this mobile app to get the latest hot news in real time. Easily and smoothly, made with Flutter.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- [x] Latest news
+- [x] WebView
+- [x] Enable/Disable JavaScript
+- [x] Images Caching
+- [x] Bookmark (read later)
+- [x] Dark/Light mode
+- [x] Support French/English
+- [x] Smoothness
 
-A few resources to get you started if this is your first Flutter project:
+## Main packages
+
+- [Provider](https://github.com/rrousselGit/provider)
+- [Hive](https://github.com/hivedb/hive)
+- [Dio](https://github.com/flutterchina/dio)
+
+## APK
+
+To download the apk file (18MB) and install it yourself click [here]()
+
+
+## Project Structure
+
+```text
+NewsApp
+├─ assets----------------------Projects assets
+├─ lib                  
+│  ├─ data---------------------Core Business Logic & API
+│  ├─ ui
+│  │  ├─ screens---------------App Screens/Page, including widgets and states
+│  │  ├─ theme-----------------App ThemeData
+│  ├─ utils
+│  │  ├─ Persistence-----------Local data persistence (bookmarks and Settings)
+│  │  ├─ enum.dart--------------Enum
+│  │  ├─ localization.dart------Languages 
+├─ main.dart
+pubspec.yaml-------------------required dependencies
+```
+
+If you want to learn the Flutter framework, let me recommend you the following resources: 
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
@@ -14,3 +50,7 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Socials
+
+[Twitter](https://twitter.com/jotterkn) || [Medium](https://medium.com/@jotterkain)
