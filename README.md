@@ -1,10 +1,11 @@
 # NewsApp
 
-I created this mobile app to get the latest hot news in real time. Easily and smoothly, made with Flutter.
+I created this mobile app to get the latest hot news in real time. Easily and smoothly, made with Flutter (in 1 week 😄).
 
 ## Features
 
 - [x] Latest news
+- [x] Search
 - [x] WebView
 - [x] Enable/Disable JavaScript
 - [x] Images Caching
@@ -12,6 +13,9 @@ I created this mobile app to get the latest hot news in real time. Easily and sm
 - [x] Dark/Light mode
 - [x] Support French/English
 - [x] Smoothness
+- [x] Loading UI
+- [x] Internet connection error handling
+- [ ] IOS (Maybe one day)
 
 ## Main packages
 
@@ -22,7 +26,6 @@ I created this mobile app to get the latest hot news in real time. Easily and sm
 ## APK
 
 To download the apk file (18MB) and install it yourself click [here]()
-
 
 ## Project Structure
 
@@ -42,7 +45,7 @@ NewsApp
 pubspec.yaml-------------------required dependencies
 ```
 
-If you want to learn the Flutter framework, let me recommend you the following resources: 
+If you want to learn the Flutter framework, let me recommend you the following resources:
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)

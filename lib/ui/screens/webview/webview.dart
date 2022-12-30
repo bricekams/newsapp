@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -20,7 +21,7 @@ class _ArticleWebViewState extends State<ArticleWebView> {
   @override
   void initState() {
     super.initState();
-    if (Hive.box("settings").get("doNotShowJsWarning") && !Hive.box("settings").get("jsMode")) {
+    if (Hive.box("settings").get("doNotShowJsWarning") == false && Hive.box("settings").get("jsMode") == false) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         showDialog(
             context: context,

@@ -39,7 +39,7 @@ class SettingsPrefs {
 
   static void setJsMode(value) {
     _box.put("jsMode", value);
-    if (!value) setJsWarningDisplay(false);
+    if (value==false) setJsWarningDisplay(false);
   }
 
   static void setJsWarningDisplay(value) {

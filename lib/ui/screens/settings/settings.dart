@@ -103,7 +103,7 @@ class SettingsScreen extends StatelessWidget {
                         text: '1.0.0\n'
                       ),
                       TextSpan(
-                        text: 'Brice Kam\'s ❤'
+                        text: 'Jotter Kain ❤'
                       )
                     ]
                   ),
