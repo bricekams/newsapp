@@ -28,7 +28,7 @@ I created this mobile app to get the latest hot news in real time. Easily and sm
 
 ## APK
 
-To download the apk file (18MB) and install it yourself click [here]()
+To download the apk file (21MB) and install it yourself click [here]()
 
 ## Project Structure
 
