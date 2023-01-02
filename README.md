@@ -2,6 +2,9 @@
 
 I created this mobile app to get the latest hot news in real time. Easily and smoothly, made with Flutter (in 1 week 😄).
 
+<img src="./brand.jpg" />
+
+
 ## Features
 
 - [x] Latest news
