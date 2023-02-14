@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:newsapp/utils/enum.dart';
-import 'package:newsapp/utils/localization.dart';
+import "package:internet_connection_checker/internet_connection_checker.dart";
+import '../../utils/enum.dart';
+import '../../utils/localization.dart';
 import '../../ui/screens/home/view_models/screen_builder.dart';
 import '../../utils/persistance/settings/settings_prefs.dart';
 import '../models/article.dart';
@@ -108,8 +108,10 @@ class NewsAPI with ChangeNotifier {
           this.articles.clear();
           this.articles.addAll(articles);
           setAPIRequestStatus = APIRequestStatus.loaded;
+
           /// reset offset when changing category
-          if(scrollController.hasClients) scrollController.position.restoreOffset(0);
+          if (scrollController.hasClients)
+            scrollController.position.restoreOffset(0);
         });
       } else {
         setAPIRequestStatus = APIRequestStatus.connectionError;
@@ -123,6 +125,7 @@ class NewsAPI with ChangeNotifier {
       requestNewsByCategories(getPage + 1, true).then((articles) {
         this.articles.addAll(articles);
         setAPIRequestStatus = APIRequestStatus.loaded;
+
         /// next page
         incrementPage();
       }).onError((error, stackTrace) {
@@ -134,21 +137,20 @@ class NewsAPI with ChangeNotifier {
 
   List<Article> searchResults = [];
 
-  void fetchNewsBySearchQuery(String query){
-    InternetConnectionChecker().hasConnection.then((value){
-      if(value) {
+  void fetchNewsBySearchQuery(String query) {
+    InternetConnectionChecker().hasConnection.then((value) {
+      if (value) {
         requestNewsBySearch(query).then((results) {
           searchResults.clear();
           searchResults.addAll(results);
         });
         setSearchAPIRequestStatus = APIRequestStatus.searchLoaded;
         return;
-      }else{
+      } else {
         setSearchAPIRequestStatus = APIRequestStatus.searchConnectionError;
         return;
       }
       setSearchAPIRequestStatus = APIRequestStatus.searchLoaded;
     });
-
   }
 }
