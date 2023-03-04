@@ -28,7 +28,7 @@ I created this mobile app to get the latest hot news in real time. Easily and sm
 
 ## APK
 
-To download the apk file (21MB) and install it yourself click [here](https://github.com/jotterkain/newsapp/blob/master/app-release.apk?raw=true)
+To download the apk file (21MB) and install it yourself click [here]()
 
 ## Project Structure
 
